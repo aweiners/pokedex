@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pokémon List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bungee&family=Bungee+Tint&family=Bytesized&family=Cedarville+Cursive&family=DM+Sans:ital,opsz,wght@1,9..40,100&family=Jersey+15&family=Ubuntu:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#BE0E23] p-8" style="background-image: url('/images/POKEDEX.jpg');">
+    <h1 class="text-[10vw] font-bold text-center mt-20 font-outline-2 bungee-regular text-[#f0dc05]" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.6), 2px -2px 4px rgba(0, 0, 0, 0.6), -2px 2px 4px rgba(0, 0, 0, 0.6);">POKEDEX</h1>
+    <div class="flex justify-center mt-10">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search Pokémon..."
+          class="w-[50vw] p-3 rounded-lg text-xl text-center border-2 border-gray-700 shadow"
+        />
+      </div>
+    <div class="grid grid-cols-3 gap-2 m-20 rounded-lg border-2 border-gray-900 " style="background-color: rgba(255, 196, 201, 0.5);">
+        
+        <% pokemons.forEach(pokemon => { %>
+
+            
+            <a href="/pokemon/<%= pokemon.name %>" class="pokemonCard block rounder-lg text-center items=center justify-center h-[20vw] p- bg-[#8AC4FF] m-10 rounded-lg shadow hover:bg-[#DEEBFF]"
+                data-name="<%= pokemon.name.toLowerCase() %>">
+                <img class="w-[10vw] h-[10vw] mx-auto mt-10" src="<%= pokemon.sprite %>" alt="" />
+                <p class="bungee-tint-regular text-[2vw] font-bold text-[#BE0E23]">
+                    <%= pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) %>
+                </p>
+                
+                
+            </a>
+        <% }); %>
+    </div>
+
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const pokemonCards = document.querySelectorAll(".pokemonCard");
+      
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.toLowerCase();
+          pokemonCards.forEach(card => {
+            const name = card.getAttribute("data-name");
+            card.style.display = name.includes(query) ? "block" : "none";
+          });
+        });
+      </script>
+</body>
+</html>

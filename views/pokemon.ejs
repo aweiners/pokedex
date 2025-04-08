@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex - <%= pokemon.name.toUpperCase() %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bungee&family=Bungee+Tint&family=Bytesized&family=Cedarville+Cursive&family=DM+Sans:ital,opsz,wght@1,9..40,100&family=Jersey+15&family=Ubuntu:ital,wght@1,300&display=swap" rel="stylesheet">
+  </head>
+  <body style="background-image: url('/images/POKEDEX2.jpg');">
+    <div class="justify-center p-10" >
+      <div class="bg-gray-800 rounded-lg m-20 mt-10 ">
+        <h1 class="rounded-lg text-[4vw] text-center bungee-tint-regular "><%= pokemon.name %></h1>
+      </div>
+      
+      <div class="flex justify-center items-center align-center m-20 border-2 border-gray-800 rounded-lg" style="background-color: rgba(255, 196, 201, 0.7);">
+        
+      <div class="grid grid-cols-1 text-center gap-4 relative"> 
+        <!-- Sprite -->
+        <div class="group w-[15vw] align-center justify-center mx-auto rounded-lg mt-10 relative">
+          
+          <img 
+            class="w-full h-full transition-transform duration-300 ease-in-out transform opacity-100 group-hover:opacity-0" 
+            src="<%= pokemon.sprites.other['official-artwork'].front_default %>" 
+            alt="<%= pokemon.name %>" 
+            id="front-sprite" 
+          />
+          
+            
+            <img 
+            class="w-full h-full absolute top-0 left-0 opacity-0 transition-opacity duration-300 ease-in-out transform group-hover:opacity-100"
+            src="<%= pokemon.sprites.other['official-artwork'].front_shiny %>" 
+            alt="<%= pokemon.name %>" 
+            id="back-sprite"
+          />
+          <p class="bungee-regular text-yellow-300 opacity-0 group-hover:opacity-100"> SHINY </p>
+          
+        </div>
+        <!-- Types -->
+         <div> 
+          <p class="flex justify-center space-x-2">
+            <% pokemon.types.forEach(type => { %>
+                <span class="
+                    px-4 py-2 rounded-full mt-10 text-white
+                  px-4 py-2 rounded-full text-white
+                            <%= type.type.name === 'fire' ? 'bg-orange-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'water' ? 'bg-blue-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'grass' ? 'bg-green-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'electric' ? 'bg-yellow-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'bug' ? 'bg-lime-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'normal' ? 'bg-gray-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'poison' ? 'bg-purple-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'fairy' ? 'bg-pink-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'fighting' ? 'bg-red-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'ground' ? 'bg-brown-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'psychic' ? 'bg-pink-300 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'rock' ? 'bg-yellow-800 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'ghost' ? 'bg-indigo-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'dragon' ? 'bg-blue-900 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'dark' ? 'bg-gray-800 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'steel' ? 'bg-slate-400 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'ice' ? 'bg-teal-500 bungee-regular text-[1vw]' : '' %>
+                            <%= type.type.name === 'flying' ? 'bg-sky-500 bungee-regular text-[1vw]' : '' %>
+                        ">
+                    <%= type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1) %>
+                </span>
+            <% }) %>
+        </p>
+         </div>
+         <!-- Description -->
+          <div>
+            <p class="bungee-regular text-black p-4"> <%= description %> </p>
+          </div>
+          <!-- Stats -->
+           <br>
+          <h1 class="bungee-tint-regular text-[4vw] -mb-10">STATS</h1>
+           <div class="flex flex-col space-y-2 p-10"> 
+            <% pokemon.stats.forEach(stat => {%><p class="bungee-regular"><%= stat.stat.name.toUpperCase() %></p>
+              <div class="w-auto bg-gray-300 rounded">
+                  <div class="bungee-regular bg-red-500 text-xs font-medium text-white text-center p-1 rounded overflow-hidden transition-all duration-500 ease-in-out" style="width: <%= Math.min(stat.base_stat, 100) %>%;">
+                      <%= stat.base_stat %>
+                  </div>
+              </div><%}) %>
+           </div>
+           <div class="flex justify-center gap-10">
+            <h1 class="bungee-regular text-[1vw]">Weight: <p class="bungee-tint-regular"><%= pokemon.weight / 10 %>kg</p></h1>
+           <h1 class="bungee-regular text-[1vw]">Height: <p class="bungee-tint-regular"><%= pokemon.height /10 %>m</p></h1>
+           </div>
+           
+          <!-- Moves -->
+           <h1 class="bungee-tint-regular text-[4vw]">MOVES</h1>
+           <div class=" grid grid-cols-3 gap-6 mb-10 p-4"> 
+          
+            <% pokemon.moves.slice(0,5).forEach(move => {%>   
+              <p class="bungee-regular text-white flex bg-[#8AC4FF] rounded-xl h-20 text-center align-center justify-center items-center hover:bg-blue-500 ease-in-out duration-300"><%= move.move.name %></p>
+              <%}) %>
+           </div>
+           <h1 class="bungee-tint-regular text-[4vw]">SPRITES</h1>
+           <div class="group bungee-regular relative space-y-2 grid grid-cols-4 p-4 items-center align-center text-center gap-6 justify-center ">
+            <!-- Generations Sprites -->
+            
+             <!-- 7 -->
+             <div class="bg-blue-400 rounded-3xl p-4 group-h-100 ease-in-out duration-300 ">
+              
+              <% const sprite7 = pokemon.sprites?.versions?.['generation-vii']?.['ultra-sun-ultra-moon']?.front_default; %>
+              <% const sprite7Shiny = pokemon.sprites?.versions?.['generation-vii']?.['ultra-sun-ultra-moon']?.front_shiny; %>
+              <p> Generation <p class="bungee-tint-regular text-[2vw]" >7</p> Sprite: </p>
+              <% if (sprite7) { %>
+                <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                  <img 
+                    src="<%= sprite7 %>" 
+                    alt="Gen 7 Normal" 
+                    class="w-full h-full object-contain transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-10"
+                  />
+                  <% if (sprite7Shiny) { %>
+                    <img 
+                      src="<%= sprite7Shiny %>" 
+                      alt="Gen 7 Shiny" 
+                      class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                    />
+                  <% } %>
+                </div>
+              <% } else { %>
+                <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+              <% } %>
+            
+           </div>
+            <!-- 6 -->
+            <div class="bg-blue-400 group-h-100 rounded-3xl p-4">
+              
+              <% const sprite6 = pokemon.sprites?.versions?.['generation-vi']?.['x-y']?.front_default; %>
+              <% const sprite6Shiny = pokemon.sprites?.versions?.['generation-vi']?.['x-y']?.front_shiny; %>
+              <p> Generation <p class="bungee-tint-regular text-[2vw]" >6</p> Sprite: </p>
+              <% if (sprite6) { %>
+                <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                  <img 
+                    src="<%= sprite6 %>" 
+                    alt="Gen 7 Normal" 
+                    class="w-full h-full object-contain transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-10 group-hover:opacity-0"
+                  />
+                  <% if (sprite6Shiny) { %>
+                    <img 
+                      src="<%= sprite6Shiny %>" 
+                      alt="Gen 7 Shiny" 
+                      class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                    />
+                  <% } %>
+                </div>
+              <% } else { %>
+                <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+              <% } %>
+            
+           </div>
+           <!-- 5 -->
+           <div class="bg-blue-400 group-h-100 rounded-3xl p-4">
+              
+            <% const sprite5 = pokemon.sprites?.versions?.['generation-v']?.['black-white']?.front_default; %>
+            <% const sprite5Shiny = pokemon.sprites?.versions?.['generation-v']?.['black-white']?.front_shiny; %>
+            <p> Generation <p class="bungee-tint-regular text-[2vw]" >5</p> Sprite: </p>
+            <% if (sprite5) { %>
+              <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                <img 
+                  src="<%= sprite5 %>" 
+                  alt="Gen 7 Normal" 
+                  class="w-full h-full object-contain transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-10 group-hover:opacity-0"
+                />
+                <% if (sprite5Shiny) { %>
+                  <img 
+                    src="<%= sprite5Shiny %>" 
+                    alt="Gen 7 Shiny" 
+                    class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                  />
+                <% } %>
+              </div>
+            <% } else { %>
+              <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+            <% } %>
+          
+         </div>
+            <!-- 4 -->
+            <div class="bg-blue-400 group-h-100 rounded-3xl p-4">
+              
+              <% const sprite4 = pokemon.sprites?.versions?.['generation-iv']?.['diamond-pearl']?.front_default; %>
+              <% const sprite4Shiny = pokemon.sprites?.versions?.['generation-iv']?.['diamond-pearl']?.front_shiny; %>
+              <p> Generation <p class="bungee-tint-regular text-[2vw]" >4</p> Sprite: </p>
+              <% if (sprite4) { %>
+                <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                  <img 
+                    src="<%= sprite4 %>" 
+                    alt="Gen 7 Normal" 
+                    class="w-full h-full object-contain transition-opacity hover:opacity-0 duration-300 ease-in-out absolute top-0 left-0 z-10 group-hover:opacity-0"
+                  />
+                  <% if (sprite4Shiny) { %>
+                    <img 
+                      src="<%= sprite4Shiny %>" 
+                      alt="Gen 7 Shiny" 
+                      class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                    />
+                  <% } %>
+                </div>
+              <% } else { %>
+                <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+              <% } %>
+            
+           </div>
+           <!-- 3 -->
+           <div class="bg-blue-400 group-h-100 rounded-3xl p-4">
+              
+            <% const sprite3 = pokemon.sprites?.versions?.['generation-iii']?.['ruby-sapphire']?.front_default; %>
+            <% const sprite3Shiny = pokemon.sprites?.versions?.['generation-iii']?.['ruby-sapphire']?.front_shiny; %>
+            <p> Generation <p class="bungee-tint-regular text-[2vw]" >3</p> Sprite: </p>
+            <% if (sprite3) { %>
+              <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                <img 
+                  src="<%= sprite3 %>" 
+                  alt="Gen 7 Normal" 
+                  class="w-full h-full object-contain transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-10 group-hover:opacity-0"
+                />
+                <% if (sprite3Shiny) { %>
+                  <img 
+                    src="<%= sprite3Shiny %>" 
+                    alt="Gen 7 Shiny" 
+                    class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                  />
+                <% } %>
+              </div>
+            <% } else { %>
+              <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+            <% } %>
+          
+         </div>
+            <!-- 2 -->
+            <div class="bg-blue-400 group-h-100 rounded-3xl p-4">
+              
+              <% const sprite2 = pokemon.sprites?.versions?.['generation-ii']?.['gold-silver-crystal']?.front_default; %>
+              <% const sprite2Shiny = pokemon.sprites?.versions?.['generation-ii']?.['gold-silver-crystal']?.front_shiny; %>
+              <% console.log(pokemon.sprites?.versions?.['generation-ii']?.['gold-silver']?.front_default); %>
+              <p> Generation <p class="bungee-tint-regular text-[2vw]" >2</p> Sprite: </p>
+              <% if (sprite2) { %>
+                <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                  <img 
+                    src="<%= sprite2 %>" 
+                    alt="Gen 7 Normal" 
+                    class="w-full h-full object-contain transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-10 group-hover:opacity-0"
+                  />
+                  <% if (sprite2Shiny) { %>
+                    <img 
+                      src="<%= sprite2Shiny %>" 
+                      alt="Gen 7 Shiny" 
+                      class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                    />
+                  <% } %>
+                </div>
+              <% } else { %>
+                <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+              <% } %>
+            
+           </div>
+           <!-- 1 -->
+           <div class="bg-blue-400 group-group-h-100 rounded-3xl p-4">
+              
+            <% const sprite1 = pokemon.sprites?.versions?.['generation-i']?.['red-blue']?.front_default; %>
+            <% const sprite1Shiny = pokemon.sprites?.versions?.['generation-i']?.['red-blue']?.front_shiny; %>
+            <p> Generation <p class="bungee-tint-regular text-[2vw]" >1</p> Sprite: </p>
+            <% if (sprite1) { %>
+              <div class="relative w-[10vw] h-[10vw] mx-auto mt-10">
+                <img 
+                  src="<%= sprite1 %>" 
+                  alt="Gen 7 Normal" 
+                  class="w-full h-full object-contain transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-10 group-hover:opacity-0"
+                />
+                <% if (sprite1Shiny) { %>
+                  <img 
+                    src="<%= sprite1Shiny %>" 
+                    alt="Gen 7 Shiny" 
+                    class="w-full h-full object-contain opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-0 left-0 z-20 group-hover:opacity-100"
+                  />
+                <% } %>
+              </div>
+            <% } else { %>
+              <p class="bungee-tint-regular text-[2vw]">No sprite available for this generation.</p>
+            <% } %>
+          
+         </div>
+        </div>
+      </div>
+      
+      </div>  
+      
+      </div>
+
+  
+    </div>
+  </body>
+</html>
